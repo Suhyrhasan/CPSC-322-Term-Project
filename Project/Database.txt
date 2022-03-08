@@ -1,0 +1,257 @@
+CREATE TABLE PROFESSOR
+(
+	SSN numeric(9) not null,
+	Name varchar(20) not null,
+	Title char(5) not null,
+	Sex enum('M', 'F') not null,
+	Salary numeric(6) not null,
+	Area_code numeric(3) not null,
+	Phone numeric(7) not null,
+	Street varchar(30) not null,
+	City varchar(20) not null,
+	State char(2) not null,
+	Zip numeric(5) not null,
+	primary key(SSN)
+);
+
+CREATE TABLE DEGREE
+(
+	SSN numeric(9) not null,
+	Name varchar(35) not null,
+	primary key(SSN, Name),
+	foreign key(SSN) references PROFESSOR(SSN)
+);
+
+CREATE TABLE DEPARTMENT
+(
+	Dep_num numeric(5) not null,
+	Name varchar(25) not null,
+	Phone numeric(10) not null,
+	Office_location varchar(10) not null,
+	Chair_person numeric(9) not null,
+	primary key(Dep_num, Chair_person),
+	foreign key(Chair_person) references PROFESSOR(SSN)
+);
+
+CREATE TABLE COURSE
+(
+	Course_num varchar(10) not null,
+ 	Dep_num numeric(5) not null,
+	Title varchar(50) not null,
+	Textbook varchar(50) not null,
+	Units tinyint not null,
+	primary key(Course_num),
+	foreign key(Dep_num) references DEPARTMENT(Dep_num)
+);
+
+CREATE TABLE PREREQUISITE
+(
+	Prereq_course  varchar(10) not null,
+	Course_num varchar(10) not null,
+	primary key(Course_num, Prereq_course),
+	foreign key(Course_num) references COURSE(Course_num),
+	foreign key(Prereq_course) references COURSE(Course_num)
+);
+
+CREATE TABLE STUDENT
+(
+	CWID numeric(10) not null,
+	First_name varchar(20) not null,
+	Last_name varchar(20) not null,
+	Telephone numeric(10) not null,
+	Major numeric(5) not null,
+	Street varchar(30) not null,
+	City varchar(20) not null,
+	State char(2) not null,
+	Zip numeric(5) not null,
+	primary key(CWID),
+	foreign key(Major) references DEPARTMENT(Dep_num)
+);
+
+
+
+CREATE TABLE MINOR
+(
+	CWID numeric(10) not null,
+	Dep_num numeric(5) not null,
+	primary key(Dep_num, CWID),
+	foreign key(CWID) references STUDENT(CWID),
+	foreign key(Dep_num) references DEPARTMENT(Dep_num)
+);
+
+CREATE TABLE SECTION
+(
+	SSN numeric(9) not null,
+	Section_num numeric(5) not null,
+	Classroom varchar(10) not null,
+	Num_seats numeric(3) not null,
+	Meet_days char(7) not null,
+	Beg_time varchar(10) not null,
+	End_time varchar(10) not null,
+	Course_num varchar(10) not null,
+	primary key(Section_num, Course_num),
+	foreign key(Course_num) references COURSE(Course_num),
+	foreign key(SSN) references PROFESSOR(SSN)
+);
+
+CREATE TABLE RECORDS
+(
+	Grade enum('A+','A','A-','B+','B','B-','C+','C','C-','D+','D','D-','F') not null,
+	Course_sec numeric(5) not null,
+	CWID numeric(10) not null,
+	primary key(Course_sec, CWID),
+	foreign key(Course_sec) references SECTION(Section_num),
+	foreign key(CWID) references STUDENT(CWID)
+);
+
+
+
+INSERT INTO PROFESSOR(SSN, Name, Title, Sex, Salary, Area_code, Phone, Street, City, State, Zip)
+VALUES(200000001, 'Shawn Wang', 'Dr', 'M', 201201, 949, 2220011, '800 N State College Blvd', 'Fullerton', 'CA', 92831);
+
+INSERT INTO PROFESSOR(SSN, Name, Title, Sex, Salary, Area_code, Phone, Street, City, State, Zip)
+VALUES(200000002, 'Frankie Molleda', 'Mr', 'M', 202202, 714,2036967, '800 N State College Blvd', 'Fullerton', 'CA', 92831);
+
+INSERT INTO PROFESSOR(SSN, Name, Title, Sex, Salary, Area_code, Phone, Street, City, State, Zip)
+VALUES(200000003, 'Genna Quach', 'Ms', 'F', 203203, 949, 2249764, '800 N State College Blvd', 'Fullerton', 'CA', 92831);
+
+
+INSERT INTO DEGREE(SSN, Name) VALUES(200000001, 'Computer Science');
+
+INSERT INTO DEGREE(SSN, Name) VALUES(200000002, 'Mathematics');
+
+INSERT INTO DEGREE(SSN, Name) VALUES(200000003, 'Computer and Information Science');
+
+
+INSERT INTO DEPARTMENT(Dep_num, Name, Phone, Office_location, Chair_person)
+VALUES(10001, 'Computer Science', 6572787258, 'CS-532' , 200000001);
+ 
+INSERT INTO DEPARTMENT(Dep_num, Name, Phone, Office_location, Chair_person)
+VALUES(10002, 'Mathematics', 6572783631, 'MH-154', 200000002);
+
+
+INSERT INTO COURSE(Course_num, Dep_num, Title, Textbook, Units)
+VALUES('CPSC-131', 10001, 'Data Structures', 'Data Structures and Algorithms in C++', 3);
+
+INSERT INTO COURSE(Course_num, Dep_num, Title, Textbook, Units)
+VALUES('CPSC-315', 10001, 'Prof Ethics in Computing', 'Ethics for the Information Age', 3);
+
+INSERT INTO COURSE(Course_num, Dep_num, Title, Textbook, Units)
+VALUES('CPSC-332', 10001, 'File Structures and Database Systems', 'Fundamentals of Database Systems', 3);
+
+INSERT INTO COURSE(Course_num, Dep_num, Title, Textbook, Units)
+VALUES('MATH-270A', 10002, 'Mathematical Structures I', 'Discrete Mathematics An Open Introduction', 3);
+
+INSERT INTO COURSE(Course_num, Dep_num, Title, Textbook, Units)
+VALUES('MATH-270B', 10002, 'Mathematical Structures II', 'Mathematics for Computer Science', 3);
+
+
+INSERT INTO PREREQUISITE(Prereq_course, Course_num) VALUES('CPSC-315', 'CPSC-332');
+
+INSERT INTO PREREQUISITE(Prereq_course, Course_num) VALUES('MATH-270A', 'MATH-270B');
+
+
+INSERT INTO SECTION(SSN, Section_num, Classroom, Num_seats, Meet_days, Beg_time, End_time, Course_num) 
+VALUES(200000001, 01, 'CS-104', 35, 'MoWe', '4:00PM', '5:15PM', 'CPSC-332');
+
+INSERT INTO SECTION(SSN, Section_num, Classroom, Num_seats, Meet_days, Beg_time, End_time, Course_num) 
+VALUES(200000001, 04, 'CS-104', 35, 'TuTh', '2:30PM', '3:45PM', 'CPSC-332');
+
+INSERT INTO SECTION(SSN, Section_num, Classroom, Num_seats, Meet_days, Beg_time, End_time, Course_num) 
+VALUES(200000001, 07, 'CS-173', 35, 'TuTh', '6:30PM', '7:45PM', 'CPSC-315');
+
+INSERT INTO SECTION(SSN, Section_num, Classroom, Num_seats, Meet_days, Beg_time, End_time, Course_num) 
+VALUES(200000002, 03, 'MH-512', 25, 'MoWe', '10:00AM', '11:15AM', 'MATH-270A');
+
+INSERT INTO SECTION(SSN, Section_num, Classroom, Num_seats, Meet_days, Beg_time, End_time, Course_num) 
+VALUES(200000002, 06, 'MH-438', 25, 'TuTh', '4:00PM', '5:15PM', 'MATH-270B');
+
+INSERT INTO SECTION(SSN, Section_num, Classroom, Num_seats, Meet_days, Beg_time, End_time, Course_num) 
+VALUES(200000003, 05, 'CS-122', 35, 'MoWe', '2:30PM', '3:45PM', 'CPSC-131');
+
+INSERT INTO SECTION(SSN, Section_num, Classroom, Num_seats, Meet_days, Beg_time, End_time, Course_num) 
+VALUES(200000003, 02, 'CS-122', 35, 'TuTh', '10:00AM', '11:15AM', 'CPSC-131');
+
+
+INSERT INTO STUDENT(CWID, First_name, Last_name, Telephone, Major, Street, City, State, Zip)
+VALUES(5750816319, 'Aaron', 'Hotchner', 8322743106, 10001, '2886 Wines Lane', 'Los Angeles', 'CA', 90001);
+
+INSERT INTO STUDENT(CWID, First_name, Last_name, Telephone, Major, Street, City, State, Zip)
+VALUES(4442707370, 'Meredith', 'Grey', 7142969485, 10001, '300 South C Street', 'Tustin', 'CA', 92780);
+
+INSERT INTO STUDENT(CWID, First_name, Last_name, Telephone, Major, Street, City, State, Zip)
+VALUES(8560443482, 'Elliot', 'Stabler', 5594876691, 10001, '2309 Tulare Street', 'Fresno', 'CA', 93701);
+
+INSERT INTO STUDENT(CWID, First_name, Last_name, Telephone, Major, Street, City, State, Zip)
+VALUES(6746042619, 'Ororo', 'Munroe', 9495152801, 10001, 'One Clubhouse Dr','Newport Beach', 'CA', 92660);
+
+INSERT INTO STUDENT(CWID, First_name, Last_name, Telephone, Major, Street, City, State, Zip)
+VALUES(9078914894, 'Niklaus', 'Mikaelson', 6576225600, 10002, '1275 N Berkeley Ave', 'Fullerton', 'CA', 92832);
+
+INSERT INTO STUDENT(CWID, First_name, Last_name, Telephone, Major, Street, City, State, Zip)
+VALUES(7770564997, 'Beth', 'Boland', 7074510182, 10002, '2100 Peabody Road', 'Vacaville', 'CA', 95687);
+
+INSERT INTO STUDENT(CWID, First_name, Last_name, Telephone, Major, Street, City, State, Zip)
+VALUES(1835198786, 'Derek', 'Hale', 9257274206, 10002, '725 Court St', 'Martinez', 'CA', 94553);
+
+INSERT INTO STUDENT(CWID, First_name, Last_name, Telephone, Major, Street, City, State, Zip)
+VALUES(2705676597, 'Hilary', 'Banks', 8056664751, 10002, '720 Santa Barbara Street', 'Santa Barbara', 'CA', 93101);
+
+
+INSERT INTO MINOR(CWID, Dep_num) VALUES(1835198786, 10001);
+
+INSERT INTO MINOR(CWID, Dep_num) VALUES(5750816319, 10002);
+
+
+ 
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(5750816319, 01, 'A');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(8560443482, 01, 'B');
+
+
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(7770564997, 02, 'B');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade)  
+VALUES(1835198786, 02, 'A-');
+
+
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(5750816319, 03, 'A-');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(4442707370, 03, 'A');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(8560443482, 03, 'C');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(6746042619, 03, 'B+');
+
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(4442707370, 04, 'D+');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(6746042619, 04, 'C-');
+
+
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(9078914894, 05, 'B');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(2705676597, 05, 'C+');
+
+
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(9078914894, 06, 'D+');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(7770564997, 06, 'F');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(1835198786, 06, 'C');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(2705676597, 06, 'A');
+ 
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(5750816319, 07, 'A+');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(4442707370, 07, 'A-');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(8560443482, 07, 'D-');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(6746042619, 07, 'A');
+

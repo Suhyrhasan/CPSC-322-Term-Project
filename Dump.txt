@@ -1,0 +1,170 @@
+RECORDS 
+++++++++++++++++
+3 Professors
+++++++++++++++++
+INSERT INTO PROFESSOR(SSN, Name, Title, Sex, Salary, Area_code, Phone, Street, City, State, Zip)
+VALUES(200000001, 'Shawn Wang', 'Dr', 'M', 201201, 949, 2220011, '800 N State College Blvd', 'Fullerton', 'CA', 92831);
+
+INSERT INTO PROFESSOR(SSN, Name, Title, Sex, Salary, Area_code, Phone, Street, City, State, Zip)
+VALUES(200000002, 'Frankie Molleda', 'Mr', 'M', 202202, 714,2036967, '800 N State College Blvd', 'Fullerton', 'CA', 92831);
+
+INSERT INTO PROFESSOR(SSN, Name, Title, Sex, Salary, Area_code, Phone, Street, City, State, Zip)
+VALUES(200000003, 'Genna Quach', 'Ms', 'F', 203203, 949, 2249764, '800 N State College Blvd', 'Fullerton', 'CA', 92831);
+
+++++++++++++++++
+3 Degrees
+++++++++++++++++
+INSERT INTO DEGREE(SSN, Name) VALUES(200000001, 'Computer Science');
+
+INSERT INTO DEGREE(SSN, Name) VALUES(200000002, 'Mathematics');
+
+INSERT INTO DEGREE(SSN, Name) VALUES(200000003, 'Computer and Information Science');
+
+++++++++++++++++
+2 Departments
+++++++++++++++++
+INSERT INTO DEPARTMENT(Dep_num, Name, Phone, Office_location, Chair_person)
+VALUES(10001, 'Computer Science', 6572787258, 'CS-532' , 200000001);
+ 
+INSERT INTO DEPARTMENT(Dep_num, Name, Phone, Office_location, Chair_person)
+VALUES(10002, 'Mathematics', 6572783631, MH-154, 200000002);
+
+++++++++++++++++x
+4 Courses
+++++++++++++++++
+INSERT INTO COURSE(Course_num, Dep_num, Title, Textbook, Units)
+VALUES('CPSC-131', 10001, 'Data Structures', 'Data Structures and Algorithms in C++', 3);
+
+INSERT INTO COURSE(Course_num, Dep_num, Title, Textbook, Units)
+VALUES('CPSC-315', 10001, 'Prof Ethics in Computing', 'Ethics for the Information Age', 3);
+
+INSERT INTO COURSE(Course_num, Dep_num, Title, Textbook, Units)
+VALUES('CPSC-332', 10001, 'File Structures and Database Systems', 'Fundamentals of Database Systems', 3);
+
+INSERT INTO COURSE(Course_num, Dep_num, Title, Textbook, Units)
+VALUES('MATH-270A', 10002, 'Mathematical Structures I', 'Discrete Mathematics An Open Introduction', 3);
+
+INSERT INTO COURSE(Course_num, Dep_num, Title, Textbook, Units)
+VALUES('MATH-270B', 10002, 'Mathematical Structures II', 'Mathematics for Computer Science', 3);
+
+++++++++++++++++
+2 Prerequisites
+++++++++++++++++
+INSERT INTO PREREQUISITE(Prereq_course, Course_num) VALUES('CPSC-315', 'CPSC-332');
+
+INSERT INTO PREREQUISITE(Prereq_course, Course_num) VALUES('MATH-270A', 'MATH-270B');
+
+++++++++++++++++
+6 Sections
+++++++++++++++++
+INSERT INTO SECTION(SSN, Section_num, Classroom, Num_seats, Met_days, Beg_time, End_time, Course_num) 
+VALUES(200000001, 01, 'CS-104', 35, 'MoWe', '4:00PM', '5:15PM', 'CPSC-332');
+
+INSERT INTO SECTION(SSN, Section_num, Classroom, Num_seats, Met_days, Beg_time, End_time, Course_num) 
+VALUES(200000001, 04, 'CS-104', 35, 'TuTh', '2:30PM', '3:45PM', 'CPSC-332');
+
+INSERT INTO SECTION(SSN, Section_num, Classroom, Num_seats, Met_days, Beg_time, End_time, Course_num) 
+VALUES(200000001, 07, 'CS-173', 35, 'TuTh', '6:30PM', '7:45PM', 'CPSC-315');
+
+INSERT INTO SECTION(SSN, Section_num, Classroom, Num_seats, Met_days, Beg_time, End_time, Course_num) 
+VALUES(200000002, 03, 'MH-512', 25, 'MoWe', '10:00AM', '11:15AM', 'MATH-270A');
+
+INSERT INTO SECTION(SSN, Section_num, Classroom, Num_seats, Met_days, Beg_time, End_time, Course_num) 
+VALUES(200000002, 06, 'MH-438', 25, 'TuTh', '4:00PM', '5:15PM', 'MATH-270B');
+
+INSERT INTO SECTION(SSN, Section_num, Classroom, Num_seats, Met_days, Beg_time, End_time, Course_num) 
+VALUES(200000003, 05, 'CS-122', 35, 'MoWe', '2:30PM', '3:45PM', 'CPSC-131');
+
+INSERT INTO SECTION(SSN, Section_num, Classroom, Num_seats, Met_days, Beg_time, End_time, Course_num) 
+VALUES(200000003, 02, 'CS-122', 35, 'TuTh', '10:00AM', '11:15AM', 'CPSC-131');
+
+++++++++++++++++
+8 Students
+++++++++++++++++
+INSERT INTO STUDENT(CWID, First_name, Last_name, Telephone, Major, Street, City, State, Zip)
+VALUES(5750816319, 'Aaron', 'Hotchner', 8322743106, 10001, '2886 Wines Lane', 'Los Angeles', 'CA', 90001);
+
+INSERT INTO STUDENT(CWID, First_name, Last_name, Telephone, Major, Street, City, State, Zip)
+VALUES(4442707370, 'Meredith', 'Grey', 7142969485, 10001, '300 South C Street', 'Tustin', 'CA', 92780);
+
+INSERT INTO STUDENT(CWID, First_name, Last_name, Telephone, Major, Street, City, State, Zip)
+VALUES(8560443482, 'Elliot', 'Stabler', 5594876691, 10001, '2309 Tulare Street', 'Fresno', 'CA', 93701);
+
+INSERT INTO STUDENT(CWID, First_name, Last_name, Telephone, Major, Street, City, State, Zip)
+VALUES(6746042619, 'Ororo', 'Munroe', 9495152801, 10001, 'One Clubhouse Dr','Newport Beach', 'CA', 92660);
+
+INSERT INTO STUDENT(CWID, First_name, Last_name, Telephone, Major, Street, City, State, Zip)
+VALUES(9078914894, 'Niklaus', 'Mikaelson', 6576225600, 10002, '1275 N Berkeley Ave', 'Fullerton', 'CA', 92832);
+
+INSERT INTO STUDENT(CWID, First_name, Last_name, Telephone, Major, Street, City, State, Zip)
+VALUES(7770564997, 'Beth', 'Boland', 7074510182, 10002, '2100 Peabody Road', 'Vacaville', 'CA', 95687);
+
+INSERT INTO STUDENT(CWID, First_name, Last_name, Telephone, Major, Street, City, State, Zip)
+VALUES(1835198786, 'Derek', 'Hale', 9257274206, 10002, '725 Court St', 'Martinez', 'CA', 94553);
+
+INSERT INTO STUDENT(CWID, First_name, Last_name, Telephone, Major, Street, City, State, Zip)
+VALUES(2705676597, 'Hilary', 'Banks', 8056664751, 10002, '720 Santa Barbara Street', 'Santa Barbara', 'CA', 93101);
+
+++++++++++++++++
+2 Minors
+++++++++++++++++
+INSERT INTO MINOR(CWID, Dep_num) VALUES(1835198786, 10001);
+
+INSERT INTO MINOR(CWID, Dep_num) VALUES(5750816319, 10002);
+
+++++++++++++++++
+20 Enrollment Records 
+++++++++++++++++
+-Sec 01- 
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(5750816319, 01, 'A');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(8560443482, 01, 'B');
+
+-Sec 02- 
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(7770564997, 02, 'B');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade)  
+VALUES(1835198786, 02, 'A-');
+
+-Sec 03- 
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(5750816319, 03, 'A-');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(4442707370, 03, 'A');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(8560443482, 03, 'C');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(6746042619, 03, 'B+');
+
+-Sec 04- 
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(4442707370, 04, 'D+');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(6746042619, 04, 'C-');
+
+-Sec 05- 
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(9078914894, 05, 'B');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(2705676597, 05, 'C+');
+
+-Sec 06- 
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(9078914894, 06, 'D+');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(7770564997, 06, 'F');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(1835198786, 06, 'C');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(2705676597, 06, 'A');
+
+-Sec 07- 
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(5750816319, 07, 'A+');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(4442707370, 07, 'A-');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(8560443482, 07, 'D-');
+INSERT INTO  RECORDS(CWID, Course_sec, Grade) 
+VALUES(6746042619, 07, 'A');
